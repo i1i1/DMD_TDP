@@ -7,7 +7,7 @@ services:
       POSTGRES_DB: hospital
       POSTGRES_USER: user
       POSTGRES_PASSWORD: "zxcvbnm,"
-  
+
   # db:
   #   image: mysql
   #   environment:
@@ -19,13 +19,15 @@ services:
   #     - mysqldata:/var/lib/mysql
 
   durka:
-    image: durka/hospital
+    build:
+      context: .
+      dockerfile: Dockerfile
     links:
       - db
     depends_on:
       - db
     environment:
-      DB_TYPE: postgres # 'mysql' or 'postgres'
+      DB_TYPE: mysql # 'mysql' or 'postgres'
       DB_HOST: db
       DB_NAME: hospital
       DB_USER: user

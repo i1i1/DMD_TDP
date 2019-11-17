@@ -2,8 +2,6 @@
 import db
 
 test = '''\
-CREATE SCHEMA hospital;
-
 CREATE TABLE Employee(
     id serial PRIMARY KEY,
     name varchar(30),
