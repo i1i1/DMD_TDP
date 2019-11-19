@@ -2,6 +2,7 @@
 import db
 
 test = '''\
+
 CREATE TABLE Employee(
     id serial PRIMARY KEY,
     name varchar(30),
@@ -106,6 +107,10 @@ CREATE TABLE DrugSold(
     datetime timestamptz,
     PRIMARY KEY (client_id, datetime)
 );
+
+
+INSERT INTO Employee(id, name, salary) values(1, 'Ivan', 300)
+
 '''
 
 
@@ -115,6 +120,12 @@ def main():
             print("Generating...")
             c.execute(test)
             d.commit()
+
+        with d.cursor() as c:
+            print("Querying...")
+            c.execute("SELECT * FROM Employee")
+            for row in c.fetchall():
+                print(*row)
     return 0
 
 
