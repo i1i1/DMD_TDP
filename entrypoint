@@ -1,5 +1,4 @@
 #!/bin/sh
 set -ex
 echo in entrypoint
-/src/gener.py
-/src/query1.py
+exec /src/gener.py

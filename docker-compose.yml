@@ -27,7 +27,7 @@ services:
     depends_on:
       - db
     environment:
-      DB_TYPE: mysql # 'mysql' or 'postgres'
+      DB_TYPE: postgres # 'mysql' or 'postgres'
       DB_HOST: db
       DB_NAME: hospital
       DB_USER: user
