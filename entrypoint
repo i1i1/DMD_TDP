@@ -1,5 +1,0 @@
-#!/bin/sh
-set -ex
-echo in entrypoint
-cd /src
-exec /src/main.py

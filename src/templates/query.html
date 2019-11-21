@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      {{ css }}
+    </style>
+  </head>
+
+  <body>
+    <h1>Please enter query:</h1>
+
+    {% if error %}
+      <h2>{{ error }}</h2>
+
+      <p>{{ errormsg }}</p>
+
+      {{ query|safe }}
+    {% endif %}
+
+    <form action="/custom_query" method="POST">
+      <textarea rows="3" cols="50" name="query"></textarea>
+      <input type="submit" value="Submit?">
+    </form>
+  </body>
+</html>

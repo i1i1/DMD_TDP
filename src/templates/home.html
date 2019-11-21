@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      {{ css }}
+    </style>
+  </head>
+
+  <body>
+    <h1>The Durka Project.</h1>
+
+    <p>This is our hospital system which is connected to db.</p>
+
+    {% for k in buttons.keys() %}
+      <form action="{{ buttons[k] }}" method="GET">
+        <input type="submit" value="{{ k }}">
+      </form>
+    {% endfor %}
+  </body>
+</html>
