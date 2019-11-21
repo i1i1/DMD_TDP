@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <style>
+      {{ css }}
+    </style>
+  </head>
+
+  <body>
+    <h1>{{ name }}</h1>
+
+    <h2>Query:</h2>
+
+    {{ query|safe }}
+
+    <h2>Output:</h2>
+
+    <table border = 1>
+      {% for entry in results %}
+        <tr>
+          {% for val in entry %}
+            <th> {{ val }} </th>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

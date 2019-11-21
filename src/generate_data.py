@@ -112,7 +112,7 @@ def _insert_apps(count, n_docs, n_clns):
     return app
 
 
-def get_insert_statements(seed: int=None, Employee=0, Client=0,
+def get_insert_statements(seed=None, Employee=0, Client=0,
                           Appointment=0):
     if seed is not None:
         random.seed(seed)
