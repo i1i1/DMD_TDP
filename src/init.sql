@@ -21,9 +21,9 @@ CREATE TABLE Doctor(
 );
 
 CREATE TABLE DoctorsAssistant(
-    empployee_id integer references Employee(id),
+    employee_id integer references Employee(id),
     assists integer references Doctor(employee_id),
-    PRIMARY KEY (empployee_id)
+    PRIMARY KEY (employee_id)
 );
 
 CREATE TABLE Appointment(
@@ -42,7 +42,7 @@ CREATE TABLE Inventory(
 
 CREATE TABLE InventoryRequests(
     inventory_id integer references Inventory(id),
-    assistant_id integer references DoctorsAssistant(empployee_id),
+    assistant_id integer references DoctorsAssistant(employee_id),
     date date,
     time time,
     approved boolean,
@@ -50,7 +50,7 @@ CREATE TABLE InventoryRequests(
 );
 CREATE TABLE Procedures(
     id integer PRIMARY KEY,
-    assistant_id integer references DoctorsAssistant(empployee_id),
+    assistant_id integer references DoctorsAssistant(employee_id),
     client_id integer references Client(id),
     inventory_id integer references Inventory(id),
     result text,

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import db
 
-test = "INSERT INTO Employee(id, name, salary) values(1, 'Ivan', 300)"
+from generate_data import get_insert_statements
 
 
 def main():
@@ -11,14 +11,18 @@ def main():
             c.execute(open("init.sql", "r").read())
             d.commit()
 
-        with d.cursor() as c:
-            print("Generating...")
-            c.execute(test)
-            d.commit()
+        for line in get_insert_statements(seed=1,
+                                          Employee=10,
+                                          Client=50,
+                                          Appointment=100).splitlines():
+            with d.cursor() as c:
+                print(line)
+                c.execute(line)
+                d.commit()
 
         with d.cursor() as c:
             print("Querying...")
-            c.execute("SELECT * FROM Employee")
+            c.execute("SELECT * FROM Appointment")
             for row in c.fetchall():
                 print(*row)
     return 0
