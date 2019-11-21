@@ -27,7 +27,7 @@ def _get_names(count):
 def _get_salaries(count):
     salaries = []
     for i in range(count):
-        salaries.append(random.randint(2, 500) * 1000)
+        salaries.append(random.randint(2, 40) * 1000)
     return salaries
 
 
@@ -39,6 +39,13 @@ def _get_ssns(count):
             candidate = random.randint(10**8, 10**9 - 1)
         ssns.append(candidate)
     return ssns
+
+
+def _get_ages(count):
+    ages = []
+    for i in range(count):
+        ages.append(random.randint(18 + (i * 2) % 41, 100 - (i // 2) % 41))
+    return ages
 
 
 def _get_specialities(count):
@@ -90,12 +97,12 @@ def _insert_employees(count):
 
 def _insert_clients(count):
     names = _get_names(count)
-    ssns = _get_ssns(count)
+    ages = _get_ages(count)
     cln = ""
-    ins = "INSERT INTO Client(id, name, ssn)"
+    ins = "INSERT INTO Client(id, name, age)"
     for i in range(count):
         cln = cln + ins + " values(%d, '%s', %d);\n"\
-            % (i + 1, names[i], ssns[i])
+            % (i + 1, names[i], ages[i])
     return cln
 
 
@@ -103,10 +110,11 @@ def _insert_apps(count, n_docs, n_clns):
     dids = range(1, n_docs + 1)
     cids = range(1, n_clns + 1)
     dates = _get_date_time(count)
-    ins = "INSERT INTO Appointment(doctor_id, client_id, date, time, approved)"
+    ins = "INSERT INTO Appointment( \
+           doctor_id, client_id, appointment_date, appointment_time)"
     app = ""
     for i in range(count):
-        app = app + ins + " values(%d, %d, '%s', '%s', TRUE);\n" % \
+        app = app + ins + " values(%d, %d, '%s', '%s');\n" % \
             (random.choice(dids), random.choice(cids),
              dates[i][0], dates[i][1])
     return app

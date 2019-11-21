@@ -9,8 +9,7 @@ CREATE TABLE Employee(
 CREATE TABLE Client(
     id integer PRIMARY KEY,
     name varchar(30),
-    ssn integer UNIQUE,
-    credit_info varchar(10)
+    age integer
 );
 
 CREATE TABLE Doctor(
@@ -29,10 +28,9 @@ CREATE TABLE DoctorsAssistant(
 CREATE TABLE Appointment(
     doctor_id integer references Doctor(employee_id),
     client_id integer references Client(id),
-    date date,
-    time time,
-    approved boolean,
-    PRIMARY KEY (doctor_id, client_id, date, time)
+    appointment_date date,
+    appointment_time time,
+    PRIMARY KEY (doctor_id, client_id, appointment_date, appointment_time)
 );
 
 CREATE TABLE Inventory(
@@ -43,10 +41,10 @@ CREATE TABLE Inventory(
 CREATE TABLE InventoryRequests(
     inventory_id integer references Inventory(id),
     assistant_id integer references DoctorsAssistant(employee_id),
-    date date,
-    time time,
+    request_date date,
+    request_time time,
     approved boolean,
-    PRIMARY KEY(inventory_id, date, time)
+    PRIMARY KEY(inventory_id, request_date, request_time)
 );
 CREATE TABLE Procedures(
     id integer PRIMARY KEY,
@@ -55,8 +53,8 @@ CREATE TABLE Procedures(
     inventory_id integer references Inventory(id),
     result text,
     cost money,
-    date date,
-    time time
+    procedure_date date,
+    procedure_time time
 );
 CREATE TABLE PatientRecord(
     id integer PRIMARY KEY,
@@ -68,8 +66,8 @@ CREATE TABLE TreatmentReport(
     id integer PRIMARY KEY,
     doctor_id integer references Doctor(employee_id),
     record_id integer references PatientRecord(id),
-    date date,
-    time time,
+    report_date date,
+    report_time time,
     description text
 );
 
@@ -95,19 +93,19 @@ CREATE TABLE Prescribed(
 CREATE TABLE OnlineHelp(
     employee_id integer references Employee(id),
     client_id integer references Client(id),
-    date date,
-    time time,
+    issue_date date,
+    issue_time time,
     question text,
     answer text,
-    PRIMARY KEY (client_id, date)
+    PRIMARY KEY (client_id, issue_date)
 );
 
 CREATE TABLE DrugSold(
     drug varchar(30) references Drug(name),
     client_id integer references Client(id),
     amount integer,
-    date date,
-    time time,
-    PRIMARY KEY (client_id, date, time)
+    purchase_date date,
+    purchase_time time,
+    PRIMARY KEY (client_id, purchase_date, purchase_time)
 );
 
