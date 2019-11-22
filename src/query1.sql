@@ -1,7 +1,8 @@
-SELECT DISTINCT Employee.name
-FROM Appointment JOIN Client ON Appointment.client_id = Client.id
-JOIN Doctor ON Doctor.employee_id = Appointment.doctor_id
-JOIN Employee ON Doctor.employee_id = Employee.id
-WHERE Client.name = %name AND (Doctor.name LIKE "%M%" OR Doctor.name LIKE "%L%") AND
-(NOT Doctor.name LIKE "M% M%") AND (NOT Doctor.name LIKE "L% L%")
-HAVING datetime = MAX(datetime)
+SELECT Employee.name
+FROM Client JOIN Appointment ON Client.id = Appointment.client_id
+JOIN Employee ON Employee.id = Appointment.doctor_id
+WHERE Client.NAME = %name AND (Employee.name LIKE 'M%' OR Employee.name LIKE 'L%'
+OR Employee.name LIKE '% M%' OR Employee.name LIKE '% L%')
+AND NOT(Employee.name LIKE 'M% M%' OR Employee.name LIKE 'L% L%')
+GROUP BY Client.id
+HAVING date = MAX(date);
