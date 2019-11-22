@@ -69,6 +69,14 @@ def render_query(query):
                            results=get_from_table(query))
 
 
+def render_err(html, err, query):
+     return render_template(html,
+                            error="Here is some in error in your query:",
+                            errormsg=str(err),
+                            css=highlight_css(),
+                            query=highlight_sql(query))
+
+
 @app.route('/')
 def url_home():
     buttons = {"Custom query": "/custom_query"}
@@ -83,8 +91,15 @@ def url_query(name):
         return render_template("query.html", error="", name=name,
                                args=queries[name].keys())
 
-    query = open(os.path.join("queries/", name + ".sql"), "r").read()
-    return render_query(query % dict(request.form))
+    try:
+        d = dict(request.form)
+        for k, v in d.items():
+            d[k] = queries[name][k](d[k])
+
+        query = open(os.path.join("queries/", name + ".sql"), "r").read()
+        return render_query(query % d)
+    except Exception as e:
+        return render_err("query.html", e, query)
 
 
 @app.route('/custom_query', methods=['POST', 'GET'])
@@ -97,12 +112,7 @@ def url_custom_query():
     try:
         return render_query(query)
     except Exception as e:
-        print(e)
-        return render_template("custom_query.html",
-                               error="Here is some in error in your query:",
-                               errormsg=str(e),
-                               css=highlight_css(),
-                               query=highlight_sql(query))
+        return render_err("custom_query.html", e, query)
 
 
 if __name__ == '__main__':
