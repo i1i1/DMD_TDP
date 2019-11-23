@@ -2,7 +2,6 @@ import os
 
 
 def _init_db():
-    print(os.getenv("DB_TYPE"))
     if os.getenv("DB_TYPE") == 'mysql':
         import pymysql
         return pymysql.Connect(host=os.getenv("DB_HOST"),
@@ -24,6 +23,6 @@ def init_db():
     while True:
         try:
             return _init_db()
-        except Exception:
-            print("Sleeping...")
+        except Exception as e:
+            print("Sleeping \"%s\"..." % e, flush=True)
             sleep(1)
