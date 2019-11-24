@@ -87,7 +87,6 @@ def get_from_table(query):
                 return []
 
 
-
 def render_query(query):
     max_lines = 40
 
