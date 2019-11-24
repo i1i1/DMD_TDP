@@ -90,13 +90,14 @@ def get_from_table(query):
 def render_query(query):
     max_lines = 40
 
+    results = get_from_table(query)
     if len(query.splitlines()) > max_lines:
         query = '\n'.join(query.splitlines()[:max_lines]) + "..."
     return render_template("result.html",
                            name="Results",
                            css=highlight_css(),
                            query=highlight_sql(query),
-                           results=get_from_table(query))
+                           results=results)
 
 
 def render_err(html, err, query):
