@@ -17,13 +17,18 @@
       {{ query|safe }}
     {% endif %}
 
-    <form action="/query/{{ name }}" method="POST">
+    <form action="/query/{{ url }}" method="POST">
+    <table border = 1>
       {% for a in args %}
         {% if not a.startswith("__") %}
-          <p>{{ a }}: <textarea rows="1" cols="50" name="{{ a }}"></textarea>
+          <tr>
+            <th>{{ a }}</th>
+            <th><textarea rows="1" cols="50" name="{{ a }}"></textarea></th>
+          </tr>
         {% endif %}
       {% endfor %}
       <input type="submit" value="Submit?">
+    </table>
     </form>
   </body>
 </html>
