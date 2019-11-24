@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <h1>Query {{ name }}</h1>
+    <h1>Please enter query:</h1>
 
     {% if error %}
       <h2>{{ error }}</h2>
@@ -17,10 +17,8 @@
       {{ query|safe }}
     {% endif %}
 
-    <form action="/query/{{ name }}" method="POST">
-      {% for a in args %}
-        {{ a }}: <textarea rows="1" cols="50" name="{{ a }}"></textarea>
-      {% endfor %}
+    <form action="/custom_query" method="POST">
+      <textarea rows="3" cols="50" name="query"></textarea>
       <input type="submit" value="Submit?">
     </form>
   </body>

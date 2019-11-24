@@ -1,35 +1,36 @@
 version: '3.2'
 
 services:
-  db:
-    image: postgres
-    environment:
-      POSTGRES_DB: hospital
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: "durka"
-
   # db:
-  #   image: mysql
+  #   image: postgres
   #   environment:
-  #     MYSQL_ROOT_PASSWORD: "zxcvbnm,"
-  #     MYSQL_DATABASE: hospital
-  #     MYSQL_USER: user
-  #     MYSQL_PASSWORD: "zxcvbnm,"
+  #     POSTGRES_DB: hospital
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: "durka"
+  #
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "zxcvbnm,"
+      MYSQL_DATABASE: hospital
+      MYSQL_USER: user
+      MYSQL_PASSWORD: "durka"
 
   durka:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - 80:80
     depends_on:
       - db
     volumes:
       - ./src/:/src/
     environment:
-      DB_TYPE: postgres # 'mysql' or 'postgres'
+      DB_TYPE: mysql # 'mysql' or 'postgres'
       DB_HOST: db
       DB_NAME: hospital
       DB_USER: user
       DB_PASSWORD: "durka"
+      PORT: 80
 
