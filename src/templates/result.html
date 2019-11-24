@@ -9,10 +9,11 @@
   <body>
     <h1>{{ name }}</h1>
 
-    <h2>Query:</h2>
+    <h2>Code:</h2>
 
     {{ query|safe }}
 
+    {% if results.__len__() > 0 %}
     <h2>Output:</h2>
 
     <table border = 1>
@@ -24,5 +25,6 @@
         </tr>
       {% endfor %}
     </table>
+    {% endif %}
   </body>
 </html>

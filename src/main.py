@@ -82,10 +82,14 @@ def get_from_table(query):
             try:
                 return c.fetchall()
             except Exception:
-                return ""
+                return []
 
 
 def render_query(query):
+    max_lines = 40
+
+    if len(query.splitlines()) > max_lines:
+        query = '\n'.join(query.splitlines()[:max_lines]) + "..."
     return render_template("result.html",
                            name="Results",
                            css=highlight_css(),
@@ -95,7 +99,7 @@ def render_query(query):
 
 def render_err(html, err, query):
     return render_template(html,
-                           error="Here is some error in your query:",
+                           error="Here is some error in your code:",
                            errormsg=str(err),
                            css=highlight_css(),
                            query=highlight_sql(query))
@@ -112,7 +116,7 @@ def url_home():
 @app.route('/query/<name>', methods=['POST', 'GET'])
 def url_query(name):
     if request.method == 'GET':
-        return render_template("query.html", error="",
+        return render_template("query.html", error="", url=name,
                                name=queries[name]["__name__"],
                                args=queries[name].keys())
 
