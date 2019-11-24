@@ -17,7 +17,7 @@
       {{ query|safe }}
     {% endif %}
 
-    <form action="/query/{{ url }}" method="POST">
+    <form action="{{ url }}" method="POST">
     <table border = 1>
       {% for a in args %}
         {% if not a.startswith("__") %}
@@ -27,8 +27,8 @@
           </tr>
         {% endif %}
       {% endfor %}
-      <input type="submit" value="Submit?">
     </table>
+    <input type="submit" value="Submit?">
     </form>
   </body>
 </html>
