@@ -26,6 +26,8 @@ queries = {
         "employee": int,
         "client": int,
         "appointment": int,
+        "start_year": int,
+        "end_year": int,
     },
     "1": {
         "__func__": inno_query("1"),
