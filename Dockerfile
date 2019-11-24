@@ -9,7 +9,7 @@ RUN apt update \
 COPY requirements.txt /requirements.txt
 RUN pip3 install -r /requirements.txt
 
-VOLUME [ "/src" ]
+COPY ./src /src
 EXPOSE 5000
 
 WORKDIR /src

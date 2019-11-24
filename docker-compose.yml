@@ -24,8 +24,6 @@ services:
       - 80:80
     depends_on:
       - db
-    volumes:
-      - ./src/:/src/
     environment:
       DB_TYPE: postgres # 'mysql' or 'postgres'
       DB_HOST: db
