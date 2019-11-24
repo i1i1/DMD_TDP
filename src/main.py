@@ -19,16 +19,6 @@ app = Flask(__name__)
 d = db.init_db()
 
 queries = {
-    "populate": {
-        "__func__": get_insert_statements,
-        "__name__": "Populate",
-        "seed": str,
-        "employee": int,
-        "clients": int,
-        "appointment": int,
-        "start_year": int,
-        "end_year": int,
-    },
     "1": {
         "__func__": inno_query("1"),
         "__name__": "Query 1",
@@ -70,6 +60,12 @@ def init_tables():
         d.commit()
 
 
+def clear_tables():
+    with d.cursor() as c:
+        c.execute(open("clear.sql", "r").read())
+        d.commit()
+
+
 def get_from_table(query):
     print("Quering...")
     with d.cursor() as c:
@@ -92,7 +88,7 @@ def render_query(query):
 
     results = get_from_table(query)
     if len(query.splitlines()) > max_lines:
-        query = '\n'.join(query.splitlines()[:max_lines]) + "..."
+        query = '\n'.join(query.splitlines()[:max_lines]) + "\nToo many lines"
     return render_template("result.html",
                            name="Results",
                            css=highlight_css(),
@@ -110,18 +106,52 @@ def render_err(html, err, query):
 
 @app.route('/')
 def url_home():
-    buttons = {"Custom query": "/custom_query"}
+    buttons = {
+        "Custom query": "/custom_query",
+        "Populate": "/populate",
+    }
     for q in queries.keys():
         buttons[q] = "/query/" + q
+
     return render_template("home.html", buttons=buttons, tmp=buttons)
+
+
+@app.route('/populate', methods=['POST', 'GET'])
+def url_populate():
+    args = {
+        "seed": str,
+        "employee": int,
+        "client": int,
+        "appointment": int,
+        "start_year": int,
+        "end_year": int,
+    }
+
+    if request.method == 'GET':
+        return render_template("query.html", error="", url='/populate',
+                               name="Populate",
+                               args=args.keys())
+
+    query = ""
+    clear_tables()
+
+    try:
+        d = dict(request.form)
+        for k, v in d.items():
+            d[k] = args[k](v)
+        return render_query(get_insert_statements(**d))
+    except Exception as e:
+        return render_err("query.html", e, query)
 
 
 @app.route('/query/<name>', methods=['POST', 'GET'])
 def url_query(name):
     if request.method == 'GET':
-        return render_template("query.html", error="", url=name,
+        return render_template("query.html", error="", url='/query/'+name,
                                name=queries[name]["__name__"],
                                args=queries[name].keys())
+
+    query = ""
 
     try:
         d = dict(request.form)
