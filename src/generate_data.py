@@ -110,8 +110,8 @@ def _insert_apps(count, n_docs, n_clns):
     dids = range(1, n_docs + 1)
     cids = range(1, n_clns + 1)
     dates = _get_date_time(count)
-    ins = "INSERT INTO Appointment( \
-           doctor_id, client_id, appointment_date, appointment_time)"
+    ins = "INSERT INTO Appointment(\
+doctor_id, client_id, appointment_date, appointment_time)"
     app = ""
     for i in range(count):
         app = app + ins + " values(%d, %d, '%s', '%s');\n" % \
@@ -120,10 +120,10 @@ def _insert_apps(count, n_docs, n_clns):
     return app
 
 
-def get_insert_statements(seed=None, Employee=0, Client=0,
-                          Appointment=0):
-    if seed is not None:
-        random.seed(seed)
-    res = _insert_employees(Employee) + _insert_clients(Client) + \
-        _insert_apps(Appointment, Employee // 2 + Employee % 2, Client)
+def get_insert_statements(seed=None, employee=0, client=0,
+                          appointment=0):
+    if seed != "None":
+        random.seed(int(seed))
+    res = _insert_employees(employee) + _insert_clients(client) + \
+        _insert_apps(appointment, employee // 2 + employee % 2, client)
     return res
