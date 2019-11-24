@@ -24,8 +24,10 @@ queries = {
         "__name__": "Populate",
         "seed": str,
         "employee": int,
-        "client": int,
+        "clients": int,
         "appointment": int,
+        "start_year": int,
+        "end_year": int,
     },
     "1": {
         "__func__": inno_query("1"),
