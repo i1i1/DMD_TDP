@@ -14,4 +14,4 @@ when visits >= 3 and age < 50 then visits*250
 when visits >=3 and age >= 50 then visits*500
 end
 ) as Income
-from visits_on_last_month
+from visits_on_last_month;

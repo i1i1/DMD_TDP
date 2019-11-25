@@ -31,4 +31,3 @@ services:
       DB_USER: user
       DB_PASSWORD: "durka"
       PORT: 80
-
