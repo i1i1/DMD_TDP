@@ -31,16 +31,6 @@ def _get_salaries(count):
     return salaries
 
 
-def _get_ssns(count):
-    ssns = []
-    for i in range(count):
-        candidate = random.randint(10**8, 10**9 - 1)
-        while candidate in ssns:
-            candidate = random.randint(10**8, 10**9 - 1)
-        ssns.append(candidate)
-    return ssns
-
-
 def _get_ages(count):
     ages = []
     for i in range(count):
@@ -106,18 +96,23 @@ def _insert_clients(count):
     return cln
 
 
+# May generate less items than count to avoid duplicates
 def _insert_apps(count, n_docs, n_clns, start_year, end_year):
     dids = range(1, n_docs + 1)
     cids = range(1, n_clns + 1)
     dates = _get_date_time(count, start_year, end_year)
     ins = "INSERT INTO Appointment(\
 doctor_id, client_id, appointment_date, appointment_time)"
-    app = ""
+    app = set()
     for i in range(count):
-        app = app + ins + " values(%d, %d, '%s', '%s');\n" % \
+        s = ins + " values(%d, %d, '%s', '%s');\n" % \
             (random.choice(dids), random.choice(cids),
              dates[i][0], dates[i][1])
-    return app
+        app.add(s)
+    res = ""
+    for s in app:
+        res = res + s
+    return res
 
 
 def get_insert_statements(seed=None, employee=0, client=0,
