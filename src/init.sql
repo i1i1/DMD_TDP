@@ -19,7 +19,7 @@ CREATE TABLE Doctor(
     PRIMARY KEY (employee_id)
 );
 
-CREATE TABLE DoctorsAssistant(
+CREATE TABLE Doctors_Assistant(
     employee_id integer references Employee(id),
     assists integer references Doctor(employee_id),
     PRIMARY KEY (employee_id)
@@ -38,9 +38,9 @@ CREATE TABLE Inventory(
     usage_receipt varchar(30)
 );
 
-CREATE TABLE InventoryRequests(
+CREATE TABLE Inventory_Requests(
     inventory_id integer references Inventory(id),
-    assistant_id integer references DoctorsAssistant(employee_id),
+    assistant_id integer references Doctors_Assistant(employee_id),
     request_date date,
     request_time time,
     approved boolean,
@@ -48,7 +48,7 @@ CREATE TABLE InventoryRequests(
 );
 CREATE TABLE Procedures(
     id integer PRIMARY KEY,
-    assistant_id integer references DoctorsAssistant(employee_id),
+    assistant_id integer references Doctors_Assistant(employee_id),
     client_id integer references Client(id),
     inventory_id integer references Inventory(id),
     result text,
@@ -90,7 +90,7 @@ CREATE TABLE Prescribed(
     PRIMARY KEY(record_id, drug)
 );
 
-CREATE TABLE OnlineHelp(
+CREATE TABLE Online_Help(
     employee_id integer references Employee(id),
     client_id integer references Client(id),
     issue_date date,
@@ -100,7 +100,7 @@ CREATE TABLE OnlineHelp(
     PRIMARY KEY (client_id, issue_date)
 );
 
-CREATE TABLE DrugSold(
+CREATE TABLE Drug_Sold(
     drug varchar(30) references Drug(name),
     client_id integer references Client(id),
     amount integer,
@@ -114,7 +114,7 @@ CREATE TABLE Time_table(
 );
  INSERT INTO Time_table(time_slot) VALUES ('8:00');
  INSERT INTO Time_table(time_slot) VALUES ('9:00');
- INSERT INTO Time_table(time_slot) VALUES ('10:00');
+ INSERT INTO Time_table(time_slot) VALUES ('10:00'); 
  INSERT INTO Time_table(time_slot) VALUES ('11:00');
  INSERT INTO Time_table(time_slot) VALUES ('12:00');
  INSERT INTO Time_table(time_slot) VALUES ('13:00');
