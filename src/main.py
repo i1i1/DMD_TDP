@@ -17,6 +17,7 @@ def inno_query(name):
 
 app = Flask(__name__)
 d = db.init_db()
+default_css = open("stylesheets/style.css", "r").read()
 
 queries = {
     "1": {
@@ -92,6 +93,7 @@ def render_query(query):
     return render_template("result.html",
                            name="Results",
                            css=highlight_css(),
+                           default_css=default_css,
                            query=highlight_sql(query),
                            results=results)
 
@@ -100,6 +102,7 @@ def render_err(html, err, query):
     return render_template(html,
                            error="Here is some error in your code:",
                            errormsg=str(err),
+                           default_css=default_css,
                            css=highlight_css(),
                            query=highlight_sql(query))
 
@@ -113,7 +116,8 @@ def url_home():
     for q in queries.keys():
         buttons[q] = "/query/" + q
 
-    return render_template("home.html", buttons=buttons, tmp=buttons)
+    return render_template("home.html", buttons=buttons,
+                           default_css=default_css)
 
 
 @app.route('/populate', methods=['POST', 'GET'])
@@ -130,6 +134,7 @@ def url_populate():
     if request.method == 'GET':
         return render_template("query.html", error="", url='/populate',
                                name="Populate",
+                               default_css=default_css,
                                args=args.keys())
 
     query = ""
@@ -149,6 +154,7 @@ def url_query(name):
     if request.method == 'GET':
         return render_template("query.html", error="", url='/query/'+name,
                                name=queries[name]["__name__"],
+                               default_css=default_css,
                                args=queries[name].keys())
 
     query = ""
@@ -167,7 +173,8 @@ def url_query(name):
 @app.route('/custom_query', methods=['POST', 'GET'])
 def url_custom_query():
     if request.method == 'GET':
-        return render_template("custom_query.html", error="")
+        return render_template("custom_query.html", error="",
+                               default_css=default_css)
 
     query = request.form["query"]
 
