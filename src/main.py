@@ -116,8 +116,7 @@ def url_home():
     for q in queries.keys():
         buttons[q] = "/query/" + q
 
-    return render_template("home.html", buttons=buttons,
-                           default_css=default_css)
+    return render_template("home.html", buttons=buttons, tmp=buttons)
 
 
 @app.route('/populate', methods=['POST', 'GET'])
@@ -134,7 +133,6 @@ def url_populate():
     if request.method == 'GET':
         return render_template("query.html", error="", url='/populate',
                                name="Populate",
-                               default_css=default_css,
                                args=args.keys())
 
     query = ""
