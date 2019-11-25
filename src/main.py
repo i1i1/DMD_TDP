@@ -116,7 +116,7 @@ def url_home():
     for q in queries.keys():
         buttons[q] = "/query/" + q
 
-    return render_template("home.html", buttons=buttons, tmp=buttons,
+    return render_template("home.html", buttons=buttons,
                            default_css=default_css)
 
 
