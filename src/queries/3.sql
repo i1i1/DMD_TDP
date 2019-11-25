@@ -12,6 +12,4 @@ HAVING COUNT(Recent_appointment) >= 2)
 select Client.name
 from Appointment_each_week JOIN Client on client_id = Client.id
 GROUP BY Client.name
-HAVING COUNT(Client.id) >= 4
-
-where visits1 >= 2 and visits2 >= 2 and visits3 >= 2 and visits4 >= 2;
+HAVING COUNT(Client.id) >= 4;
