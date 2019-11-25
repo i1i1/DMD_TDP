@@ -2,11 +2,21 @@
 <html>
   <head>
     <style>
+      {{ default_css }}
       {{ css }}
     </style>
   </head>
 
   <body>
+    <div class="header">
+      <a href="/" class="logo">Project codename "The Durka"</a>
+      <div class="header-right">
+        <a href="/">Home</a>
+      </div>
+    </div>
+
+    <p>
+    <div class="body">
     <h1>Please enter query:</h1>
 
     {% if error %}
@@ -21,5 +31,10 @@
       <textarea rows="3" cols="50" name="query"></textarea>
       <input type="submit" value="Submit?">
     </form>
+
+    <form action="/" method="GET">
+      <input type="submit" value="Back?">
+    </form>
+    </div>
   </body>
 </html>
