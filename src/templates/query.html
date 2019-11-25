@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <h1>Query {{ name }}</h1>
+    <h1>{{ name }}</h1>
 
     {% if error %}
       <h2>{{ error }}</h2>
@@ -17,11 +17,18 @@
       {{ query|safe }}
     {% endif %}
 
-    <form action="/query/{{ name }}" method="POST">
+    <form action="{{ url }}" method="POST">
+    <table border = 1>
       {% for a in args %}
-        {{ a }}: <textarea rows="1" cols="50" name="{{ a }}"></textarea>
+        {% if not a.startswith("__") %}
+          <tr>
+            <th>{{ a }}</th>
+            <th><textarea rows="1" cols="50" name="{{ a }}"></textarea></th>
+          </tr>
+        {% endif %}
       {% endfor %}
-      <input type="submit" value="Submit?">
+    </table>
+    <input type="submit" value="Submit?">
     </form>
   </body>
 </html>
