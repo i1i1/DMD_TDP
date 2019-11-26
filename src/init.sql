@@ -108,33 +108,3 @@ CREATE TABLE DrugSold(
     purchase_time time,
     PRIMARY KEY (client_id, purchase_date, purchase_time)
 );
-
-CREATE TABLE Time_table(
-    time_slot time PRIMARY KEY
-);
- INSERT INTO Time_table(time_slot) VALUES ('8:00');
- INSERT INTO Time_table(time_slot) VALUES ('9:00');
- INSERT INTO Time_table(time_slot) VALUES ('10:00');
- INSERT INTO Time_table(time_slot) VALUES ('11:00');
- INSERT INTO Time_table(time_slot) VALUES ('12:00');
- INSERT INTO Time_table(time_slot) VALUES ('13:00');
- INSERT INTO Time_table(time_slot) VALUES ('14:00');
- INSERT INTO Time_table(time_slot) VALUES ('15:00');
- INSERT INTO Time_table(time_slot) VALUES ('16:00');
- INSERT INTO Time_table(time_slot) VALUES ('17:00');
- INSERT INTO Time_table(time_slot) VALUES ('18:00');
- INSERT INTO Time_table(time_slot) VALUES ('19:00');
- INSERT INTO Time_table(time_slot) VALUES ('20:00');
- INSERT INTO Time_table(time_slot) VALUES ('8:30');
- INSERT INTO Time_table(time_slot) VALUES ('9:30');
- INSERT INTO Time_table(time_slot) VALUES ('10:30');
- INSERT INTO Time_table(time_slot) VALUES ('11:30');
- INSERT INTO Time_table(time_slot) VALUES ('12:30');
- INSERT INTO Time_table(time_slot) VALUES ('13:30');
- INSERT INTO Time_table(time_slot) VALUES ('14:30');
- INSERT INTO Time_table(time_slot) VALUES ('15:30');
- INSERT INTO Time_table(time_slot) VALUES ('16:30');
- INSERT INTO Time_table(time_slot) VALUES ('17:30');
- INSERT INTO Time_table(time_slot) VALUES ('18:30');
- INSERT INTO Time_table(time_slot) VALUES ('19:30');
-
