@@ -14,7 +14,6 @@ body {
 .header a {
     float: left;
     color: black;
-    text-align: center;
     padding: 12px;
     text-decoration: none;
     font-size: 18px;
@@ -52,14 +51,10 @@ body {
         float: none;
     }
 }
-.body {
-    margin-left:  25%;
-    margin-right: 25%;
-}
 
-.links1 {
-    width: 30%;
-    margin-left: 30%;
+.body {
+    margin-left:  5%;
+    margin-right: 5%;
 }
 
 .links a, .links input {
@@ -75,6 +70,7 @@ body {
     border-radius: 4px;
     margin-bottom: 3px;
     margin-top: 3px;
+    width: 25%;
 }
 
 .links a:hover {
