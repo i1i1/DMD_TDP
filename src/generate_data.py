@@ -1,23 +1,23 @@
 import random
 
 
-def _randoms_from_file(filename, count):
+def _randoms_from_file(path, count):
     res = []
     try:
-        f = open(filename, "r")
+        f = open(path, "r")
         lines = f.read().splitlines()
         f.close()
         for i in range(count):
             res.append(random.choice(lines))
     except OSError:
-        print("Can't open " + filename)
+        print("Can't open " + path)
     finally:
         return res
 
 
 def _get_names(count):
-    fns = _randoms_from_file("first_names.txt", count)
-    lns = _randoms_from_file("last_names.txt", count)
+    fns = _randoms_from_file("data/first_names.txt", count)
+    lns = _randoms_from_file("data/last_names.txt", count)
     names = []
     for i in range(count):
         names.append(fns[i] + " " + lns[i])
@@ -39,7 +39,7 @@ def _get_ages(count):
 
 
 def _get_specialities(count):
-    return _randoms_from_file("specialities.txt", count)
+    return _randoms_from_file("data/specialities.txt", count)
 
 
 def _get_cabinets(count):

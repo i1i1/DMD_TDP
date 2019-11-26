@@ -1,17 +1,17 @@
 WITH visits_on_last_month AS
 
-(select name, count(name) as visits, age
-from Client as c inner join Appointment as a on c.id = a.client_id
-where DATE_PART('month',appointment_date) = DATE_PART('month',CURRENT_DATE - interval '1 month')
-group by c.name, c.age)
+(SELECT name, count(name) AS visits, age
+FROM Client AS c INNER JOIN Appointment AS a ON c.id = a.client_id
+WHERE DATE_PART('month',appointment_date) = DATE_PART('month',CURRENT_DATE - interval '1 month')
+GROUP BY c.name, c.age)
 
-select sum
+SELECT sum
 (
-case
-when visits < 3 and age < 50 then visits*200
-when visits < 3 and age >= 50 then visits*400
-when visits >= 3 and age < 50 then visits*250
-when visits >=3 and age >= 50 then visits*500
-end
-) as Income
-from visits_on_last_month;
+CASE
+WHEN visits < 3 AND age < 50 THEN visits*200
+WHEN visits < 3 AND age >= 50 THEN visits*400
+WHEN visits >= 3 AND age < 50 THEN visits*250
+WHEN visits >=3 AND age >= 50 THEN visits*500
+END
+) AS Income
+FROM visits_on_last_month;

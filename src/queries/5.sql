@@ -1,34 +1,12 @@
-create or replace function get_apps_number(
-    did integer,
-    sd date,
-    ed date
-)
-returns integer as $n_visits$
-declare
+WITH
+Appointment_each_year AS(
+SELECT doctor_id, COUNT(Appointment) as appointment_count, DATE_PART('year', appointment_date) as year_num
+FROM Appointment
+WHERE DATE_PART('year', appointment_date) >= DATE_PART('year', CURRENT_date - interval '10 years')
+GROUP BY doctor_id, DATE_PART('year', appointment_date)
+HAVING COUNT(Appointment) >= 5)
 
-    n_visits integer;
-begin
-	select count(id)
-	from Employee join Appointment on id = doctor_id
-	where appointment_date >= sd and
-		  appointment_date < ed and
-		  id = did
-	group by id
-	into n_visits;
-	return n_visits;
-end;
-$n_visits$ LANGUAGE plpgsql;
-
-select distinct name
-from Employee join Appointment on id = doctor_id
-where get_apps_number(id, date (current_date - interval '10 years'), current_date) >= 100 and
-	  get_apps_number(id, date (current_date - interval '10 years'), date (current_date - interval '9 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '9 years'), date (current_date - interval '8 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '8 years'), date (current_date - interval '7 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '7 years'), date (current_date - interval '6 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '6 years'), date (current_date - interval '5 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '5 years'), date (current_date - interval '4 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '4 years'), date (current_date - interval '3 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '3 years'), date (current_date - interval '2 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '2 years'), date (current_date - interval '1 years')) >= 5 and
-	  get_apps_number(id, date (current_date - interval '1 years'), current_date) >= 5
+SELECT Employee.name
+FROM Employee JOIN Appointment_each_year on Employee.id = doctor_id
+GROUP BY name
+HAVING COUNT(year_num) >= 10 AND SUM(appointment_count) >= 100
