@@ -2,8 +2,8 @@
 <html>
   <head>
     <style>
-      {{ default_css }}
-      {{ css }}
+      {{ default_css|safe }}
+      {{ css|safe }}
     </style>
   </head>
 
@@ -38,6 +38,7 @@
         {% endif %}
       {% endfor %}
     </table>
+
     <div class="links1"><div class="links">
       <input type="submit" value="Submit?">
       <a href="/">Back?</a>

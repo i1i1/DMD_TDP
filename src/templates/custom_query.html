@@ -2,8 +2,8 @@
 <html>
   <head>
     <style>
-      {{ default_css }}
-      {{ css }}
+      {{ default_css|safe }}
+      {{ css|safe }}
     </style>
   </head>
 
@@ -29,11 +29,10 @@
 
     <form action="/custom_query" method="POST">
       <textarea rows="3" cols="50" name="query"></textarea>
-      <input type="submit" value="Submit?">
-    </form>
-
-    <form action="/" method="GET">
-      <input type="submit" value="Back?">
+      <div class="links1"><div class="links">
+        <input type="submit" value="Submit?">
+        <a href="/">Back?</a>
+      </div></div>
     </form>
     </div>
   </body>
