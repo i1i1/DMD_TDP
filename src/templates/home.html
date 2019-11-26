@@ -2,19 +2,31 @@
 <html>
   <head>
     <style>
-      {{ css }}
+      {{ default_css|safe }}
+      {{ css|safe }}
     </style>
   </head>
 
   <body>
-    <h1>The Durka Project.</h1>
+    <div class="header">
+      <a href="/" class="logo">Project codename "The Durka"</a>
+      <div class="header-right">
+        <a class="active" href="/">Home</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
 
-    <p>This is our hospital system which is connected to db.</p>
+    <p>
 
-    {% for k in buttons.keys() %}
-      <form action="{{ buttons[k] }}" method="GET">
-        <input type="submit" value="{{ k }}">
-      </form>
-    {% endfor %}
+    <div class="body">
+      <div class="links1"><div class="links">
+        {% for k, v in buttons.items() %}
+          <a href="{{ v }}">{{ k }}</a>
+        {% endfor %}
+      </div></div>
+
+      <h2 id="about">About</h2>
+      <p>This is our hospital system which is connected to db.</p>
+    </div>
   </body>
 </html>

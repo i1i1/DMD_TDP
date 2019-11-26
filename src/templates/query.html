@@ -2,11 +2,21 @@
 <html>
   <head>
     <style>
-      {{ css }}
+      {{ default_css|safe }}
+      {{ css|safe }}
     </style>
   </head>
 
   <body>
+    <div class="header">
+      <a href="/" class="logo">Project codename "The Durka"</a>
+      <div class="header-right">
+        <a href="/">Home</a>
+      </div>
+    </div>
+
+    <p>
+    <div class="body">
     <h1>{{ name }}</h1>
 
     {% if error %}
@@ -28,7 +38,12 @@
         {% endif %}
       {% endfor %}
     </table>
-    <input type="submit" value="Submit?">
+
+    <div class="links1"><div class="links">
+      <input type="submit" value="Submit?">
+      <a href="/">Back?</a>
+    </div></div>
     </form>
+    </div>
   </body>
 </html>

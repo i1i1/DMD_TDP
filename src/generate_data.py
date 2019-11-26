@@ -117,7 +117,7 @@ doctor_id, client_id, appointment_date, appointment_time)"
 
 def get_insert_statements(seed=None, employee=0, client=0,
                           appointment=0, start_year=2019, end_year=2019):
-    if seed != "None":
+    if seed != "None" and seed:
         random.seed(int(seed))
     res = _insert_employees(employee) + _insert_clients(client) + \
         _insert_apps(appointment, employee // 2 + employee % 2, client,
